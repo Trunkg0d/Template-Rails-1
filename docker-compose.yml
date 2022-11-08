@@ -11,7 +11,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: app.Dockerfile
+      dockerfile: ./docker/app/Dockerfile
     command: bash -c "bundle exec puma -C config/puma.rb"
     volumes:
       - .:/app
@@ -20,7 +20,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: ./nginx.Dockerfile
+      dockerfile: ./docker/nginx/Dockerfile
     depends_on:
       - app
     ports:
