@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres
+    image: postgres:14.5
     command: ["postgres", "-c", "fsync=false", "-c", "full_page_writes=off"]
     environment:
       POSTGRES_PASSWORD: password
@@ -25,3 +25,5 @@ services:
       - app
     ports:
       - 80:80
+
+      

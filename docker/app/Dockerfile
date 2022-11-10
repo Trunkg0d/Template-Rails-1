@@ -9,12 +9,13 @@ RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
 RUN npm install -g yarn@1
 
 WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile.lock /app/
 RUN bundle install
 COPY . /app
 
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
 EXPOSE 3000
 
-RUN SECRET_KEY_BASE=1 RAILS_ENV=development bundle exec rake assets:precompile
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
